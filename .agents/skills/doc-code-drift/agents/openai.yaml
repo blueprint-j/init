@@ -1,0 +1,4 @@
+interface:
+  display_name: "Doc Code Drift"
+  short_description: "Audit code and docs for mismatch candidates."
+  default_prompt: "Use $doc-code-drift to audit this repository for code and documentation mismatch candidates."

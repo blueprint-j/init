@@ -1,0 +1,4 @@
+interface:
+  display_name: "Surface Maintainer"
+  short_description: "Review user-facing surfaces and publishing changes."
+  default_prompt: "Use $surface-maintainer to review this user-facing surface or publishing change."
