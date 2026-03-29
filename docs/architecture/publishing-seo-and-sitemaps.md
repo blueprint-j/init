@@ -2,7 +2,7 @@
 last-verified: 2026-03-29
 ---
 
-# Publishing SEO And Sitemaps
+# 발행, SEO, 사이트맵
 
 ## 목적
 사용자 표면, SEO 메타, robots, sitemap 같은 생성 산출물의 구조를 설명한다.

@@ -2,7 +2,7 @@
 last-verified: 2026-03-29
 ---
 
-# 문서 / 코드 Drift 점검 에이전트
+# 문서 / 코드 드리프트 점검 에이전트
 
 ## 단일 책임
 코드와 canonical docs 사이 mismatch 후보를 빠르게 찾고 분류한다.

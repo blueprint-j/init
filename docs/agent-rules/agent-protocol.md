@@ -39,7 +39,7 @@ last-verified: 2026-03-29
 - 작업을 검증 가능한 목표로 전환한다.
 - 가능하면 작게 바꾸고 바로 검증한다.
 - 같은 접근으로 3번 연속 실패하면 멈추고 원인과 다음 선택지를 정리한다.
-- 반복되는 실패 패턴은 `docs/agent-rules/` 또는 `docs/knowledge/system-patterns.md` 갱신 대상으로 본다.
+- 반복되는 실패 패턴은 `docs/agent-rules/` 또는 `docs/knowledge/documentation-reference.md` 갱신 대상으로 본다.
 
 ## 테스트 / 완료 보고
 - 퍼블릭 인터페이스와 기대 동작 중심으로 검증한다.

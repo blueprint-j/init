@@ -1,35 +1,34 @@
 # AGENTS 지도
 
-이 파일은 코딩 AI 에이전트의 최상위 지도이자 핵심 운영 계약이다. 세부 규칙과 장기 지식은 `docs/` 아래의 canonical source에 유지한다.
+이 파일은 `docs/` 구조의 최상위 계약이다. 상세 규칙과 장기 지식은 가장 구체적인 canonical source 한 곳에만 둔다.
 
-## 절대 원칙
-1. 작업 전 최소 필요한 문서를 반드시 이 순서로 읽는다: `agent-rules -> 관련 architecture -> 관련 knowledge -> memory/runtime`.
-2. 현재 작업 상태는 `docs/memory/runtime/context.md`에, 짧은 진행 로그는 `docs/memory/runtime/dailylog.md`에 유지한다.
-3. 장기 규칙, 구조 지식, 정책은 `docs/agent-rules/`, `docs/architecture/`, `docs/knowledge/` 내부의 단일 문서에만 기록한다.
-4. 문서 간 내용이 충돌하거나 요구사항 해석에 따라 결과가 크게 달라질 수 있으면 임의 판단 없이 사용자 확인을 요청한다.
-5. 작업 종료 시 durable한 판단과 구조 변경은 해당 canonical 문서로 승격하고, `docs/memory/runtime/`은 다음 작업을 위해 가볍게 정리한다.
-6. `docs/` 아래 `.md` 문서는 특별한 사유가 없으면 한국어로 작성한다. 코드, 경로, 설정 키, 식별자는 원문 표기를 유지한다.
+## 기본 계약
+1. 작업 전 최소 필요한 문서를 `agent-rules -> 관련 architecture -> 관련 knowledge -> memory/runtime` 순서로 읽는다.
+2. 현재 작업 상태는 `docs/memory/runtime/context.md`, 짧은 진행 로그는 `docs/memory/runtime/dailylog.md`에만 둔다.
+3. 장기 규칙, 구조, 정책은 `docs/agent-rules/`, `docs/architecture/`, `docs/knowledge/`의 단일 문서에만 기록한다.
+4. 문서 간 충돌이나 해석에 따라 결과가 크게 달라질 수 있으면 사용자 확인 없이 임의 판단하지 않는다.
+5. 작업 종료 시 durable한 결과는 해당 canonical 문서로 승격하고, `docs/memory/runtime/`은 가볍게 정리한다.
 
-## 문서 경계 요약
+## 문서 경계
 
 | 축 | 소유하는 것 | 소유하지 않는 것 |
 | --- | --- | --- |
-| `docs/agent-rules/` | 에이전트 행동 규칙, 작업 절차, 검증 원칙 | 프로젝트 구조 설명, 사용자 노출 정책, 현재 작업 로그 |
+| `docs/agent-rules/` | 에이전트 행동 규칙, 작업 절차, 검증 기준 | 프로젝트 구조 설명, 사용자 노출 정책, 현재 작업 로그 |
 | `docs/architecture/` | 내부 계층 구조, runtime wiring, 데이터 흐름, 테스트 구조 | 사용자 표면 정책, 장기 용어집, 현재 작업 상태 |
-| `docs/knowledge/` | 사용자 노출 동작, 장기 결정, 공용 용어, 반복 패턴 | 내부 wiring 세부, 일회성 조사 로그, 진행 중 메모 |
+| `docs/knowledge/` | 사용자 노출 정책, 문서 운영 기준, 장기 결정 | 내부 wiring 세부, 일회성 조사 로그, 진행 중 메모 |
 | `docs/memory/runtime/` | 현재 목표, 가정, blocker, 짧은 진행 로그 | durable한 규칙, 구조, 정책, 장기 기록 |
 
-새 내용을 어디에 둘지 애매하면 "이 내용이 다음 작업에서도 참조될 장기 사실인가?"를 먼저 판단한다. 아니면 `memory/runtime`, 맞다면 가장 구체적인 `agent-rules`, `architecture`, `knowledge`로 보낸다.
+새 내용을 어디에 둘지 애매하면 먼저 장기 사실인지 판단한다. 장기 사실이 아니면 `docs/memory/runtime/`, 장기 사실이면 가장 구체적인 축의 단일 문서로 보낸다.
 
-## 문서 안내
+## 읽기 순서
 
-| 순서 | 경로 | 내용 |
+| 순서 | 경로 | 역할 |
 | --- | --- | --- |
-| 1 | `docs/agent-rules/README.md` | 에이전트 역할 지도와 역할별 단일 guide 진입점 |
-| 2 | `docs/agent-rules/agent-protocol.md` | 모든 에이전트가 공통으로 따르는 행동, 구현, 보안, 검증 계약 |
-| 3 | `docs/architecture/index.md` | 시스템 구조 지도와 세부 아키텍처 진입점 |
-| 4 | `docs/knowledge/README.md` | 장기 참조 지식, 사용자 노출 정책, 용어, 패턴 진입점 |
-| 5 | `docs/memory/index.md` | live runtime memory 운영 원칙 |
+| 1 | `docs/agent-rules/README.md` | 역할별 guide 진입점 |
+| 2 | `docs/agent-rules/agent-protocol.md` | 공통 행동 계약 |
+| 3 | `docs/architecture/index.md` | 내부 구조 지도 |
+| 4 | `docs/knowledge/README.md` | 장기 참조 지식 진입점 |
+| 5 | `docs/memory/index.md` | runtime memory 운영 원칙 |
 | 6 | `docs/memory/runtime/context.md` | 현재 작업 상태 |
 
 ## 작업 유형별 빠른 경로

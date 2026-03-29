@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Architect"
+  short_description: "Design a decisive implementation blueprint."
+  default_prompt: "Use $code-architect to turn this request into a concrete implementation blueprint before coding."

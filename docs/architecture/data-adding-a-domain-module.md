@@ -2,7 +2,7 @@
 last-verified: 2026-03-29
 ---
 
-# Adding A Domain Module
+# 도메인 모듈 추가
 
 ## 이 문서가 다루는 것
 - 새 모듈 추가 시 내부 구조를 어떤 순서로 건드릴지

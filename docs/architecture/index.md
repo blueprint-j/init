@@ -1,6 +1,6 @@
-# Architecture Index
+# 아키텍처 지도
 
-## Core Rules
+## 핵심 규칙
 - 컨트롤러와 진입점은 얇게 유지하고, 실제 조립과 wiring은 하위 계층으로 내린다.
 - 사용자 노출 동작은 `docs/knowledge/product-reference.md`에 두고, 내부 구조와 runtime wiring은 여기서 설명한다.
 - 도메인 모듈 차이는 registry, provider, repository, presentation 계층으로 표현한다.
@@ -15,7 +15,7 @@
 - 어떤 모듈이나 페이지가 제품적으로 지원되는가?
 - 현재 작업에서 무엇을 시도 중이고 어디서 막혔는가?
 
-## Read Next
+## 다음 문서
 - [runtime-request-lifecycle.md](runtime-request-lifecycle.md)
 - [runtime-config-and-services.md](runtime-config-and-services.md)
 - [data-domain-module-system.md](data-domain-module-system.md)

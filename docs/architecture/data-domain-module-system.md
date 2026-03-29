@@ -2,7 +2,7 @@
 last-verified: 2026-03-29
 ---
 
-# Data Domain Module System
+# 도메인 모듈 시스템
 
 ## 목적
 도메인 모듈을 런타임에 어떻게 등록하고 조립하는지 설명한다.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Runtime Maintainer"
+  short_description: "Review runtime wiring after backend changes."
+  default_prompt: "Use $runtime-maintainer to review this runtime or backend change."

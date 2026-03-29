@@ -12,7 +12,7 @@ last-verified: 2026-03-29
 - `docs/agent-rules/agent-protocol.md`
 - `docs/architecture/index.md`
 - `docs/knowledge/product-reference.md`
-- `docs/knowledge/decisions-and-structure.md`
+- `docs/knowledge/documentation-reference.md`
 - `docs/memory/runtime/context.md`
 
 ## 출력 규칙

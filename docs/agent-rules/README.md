@@ -22,5 +22,5 @@
 - [domain-module-maintainer.md](domain-module-maintainer.md)
 
 ## 운영 규칙
-- 반복되는 실패 패턴이 보이면 관련 guide 하나를 갱신하거나 `docs/knowledge/system-patterns.md`에 패턴을 추가한다.
+- 반복되는 실패 패턴이 보이면 관련 guide 하나를 갱신하거나 `docs/knowledge/documentation-reference.md`의 운영 원칙을 갱신한다.
 - 새 guide를 추가할 때는 단일 책임, 먼저 읽을 문서, 함께 읽을 canonical source가 한 번에 보여야 한다.

@@ -2,7 +2,7 @@
 last-verified: 2026-03-29
 ---
 
-# Data Repository And Query Layer
+# 저장소와 쿼리 계층
 
 ## 목적
 읽기 모델, query 조립, repository 책임 경계를 설명한다.

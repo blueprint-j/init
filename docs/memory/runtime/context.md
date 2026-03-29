@@ -1,4 +1,4 @@
-# Runtime Context
+# 작업 컨텍스트
 
 ## Current Task
 - 현재 활성 작업 없음.
