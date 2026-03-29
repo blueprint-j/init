@@ -1,4 +1,0 @@
-interface:
-  display_name: "Doc Hygiene"
-  short_description: "Route doc changes to the right canonical source."
-  default_prompt: "Use $doc-hygiene to place this documentation change in the correct canonical doc."

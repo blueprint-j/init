@@ -1,5 +1,5 @@
 param(
-    [string] $RootPath = $(Resolve-Path (Join-Path $PSScriptRoot '..'))
+    [string] $RootPath = $(Resolve-Path (Join-Path $PSScriptRoot '..\..\..'))
 )
 
 Set-StrictMode -Version Latest
@@ -11,11 +11,9 @@ $requiredEntrypoints = @(
     'docs/agent-rules/README.md',
     'docs/agent-rules/agent-protocol.md',
     'docs/architecture/index.md',
-    'docs/product/index.md',
-    'docs/design-docs/README.md',
+    'docs/knowledge/README.md',
     'docs/memory/index.md',
-    'docs/plans/README.md',
-    'docs/plans/active/active_task.md'
+    'docs/memory/runtime/context.md'
 )
 
 $rootMarkdownFiles = @(
@@ -24,8 +22,7 @@ $rootMarkdownFiles = @(
 )
 
 $markdownDirectories = @(
-    'docs',
-    '.agents/skills'
+    'docs'
 )
 
 $rootPath = [System.IO.Path]::GetFullPath($RootPath)
@@ -64,7 +61,7 @@ function Normalize-RelativePath {
 
 function Should-AuditFile {
     param([Parameter(Mandatory = $true)][string] $RelativePath)
-    return -not $RelativePath.StartsWith('docs/plans/completed/')
+    return $true
 }
 
 function Requires-LastVerified {
@@ -74,7 +71,7 @@ function Requires-LastVerified {
         return $false
     }
 
-    if ($RelativePath.StartsWith('docs/plans/active/')) {
+    if ($RelativePath.StartsWith('docs/memory/runtime/')) {
         return $false
     }
 

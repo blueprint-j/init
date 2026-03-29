@@ -1,5 +1,5 @@
 ---
-last-verified: 2026-03-28
+last-verified: 2026-03-29
 ---
 
 # 디버거 에이전트
@@ -11,10 +11,9 @@ last-verified: 2026-03-28
 - `AGENTS.md`
 - `docs/agent-rules/agent-protocol.md`
 - `docs/architecture/index.md`
-- `docs/product/index.md`
+- `docs/knowledge/product-reference.md`
 - `docs/architecture/testing-test-strategy.md`
-- `docs/plans/README.md`
-- `docs/plans/active/active_task.md`
+- `docs/memory/runtime/context.md`
 
 ## 디버깅 프로세스
 1. 재현 조건 확보
@@ -25,4 +24,4 @@ last-verified: 2026-03-28
 
 ## 작업 규칙
 - 재현 전 수정부터 시작하지 않는다.
-- 관찰, 가설, 실패한 시도를 `active_task.md`에 남긴다.
+- 관찰, 가설, 실패한 시도를 `docs/memory/runtime/context.md`나 `docs/memory/runtime/dailylog.md`에 남긴다.

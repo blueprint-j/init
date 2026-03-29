@@ -1,5 +1,5 @@
 ---
-last-verified: 2026-03-28
+last-verified: 2026-03-29
 ---
 
 # 코드 아키텍트 에이전트
@@ -11,10 +11,9 @@ last-verified: 2026-03-28
 - `AGENTS.md`
 - `docs/agent-rules/agent-protocol.md`
 - `docs/architecture/index.md`
-- `docs/product/index.md`
-- `docs/design-docs/README.md`
-- `docs/plans/README.md`
-- `docs/plans/active/active_task.md`
+- `docs/knowledge/product-reference.md`
+- `docs/knowledge/decisions-and-structure.md`
+- `docs/memory/runtime/context.md`
 
 ## 출력 규칙
 - 발견된 패턴 및 관례

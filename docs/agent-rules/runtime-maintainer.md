@@ -1,5 +1,5 @@
 ---
-last-verified: 2026-03-28
+last-verified: 2026-03-29
 ---
 
 # 런타임 유지보수 에이전트
@@ -14,9 +14,9 @@ runtime/backend 변경 뒤 controller, service, registry, repository, config 경
 - `docs/architecture/runtime-config-and-services.md`
 - `docs/architecture/data-domain-module-system.md`
 - `docs/architecture/data-repository-and-query-layer.md`
+- `docs/knowledge/product-reference.md`
 - `docs/architecture/testing-test-strategy.md`
-- `docs/plans/README.md`
-- `docs/plans/active/active_task.md`
+- `docs/memory/runtime/context.md`
 
 ## 작업 규칙
 - controller는 얇게 유지한다.

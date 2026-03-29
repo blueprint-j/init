@@ -1,5 +1,5 @@
 ---
-last-verified: 2026-03-28
+last-verified: 2026-03-29
 ---
 
 # 표면 유지보수 에이전트
@@ -10,12 +10,10 @@ last-verified: 2026-03-28
 ## 먼저 읽을 문서
 - `AGENTS.md`
 - `docs/agent-rules/agent-protocol.md`
-- `docs/product/surfaces-page-behavior.md`
-- `docs/product/policies-indexing-and-content-policy.md`
+- `docs/knowledge/product-reference.md`
 - `docs/architecture/publishing-seo-and-sitemaps.md`
 - `docs/architecture/testing-test-strategy.md`
-- `docs/plans/README.md`
-- `docs/plans/active/active_task.md`
+- `docs/memory/runtime/context.md`
 
 ## 작업 규칙
 - source-first asset pipeline을 유지한다.

@@ -1,5 +1,5 @@
 ---
-last-verified: 2026-03-28
+last-verified: 2026-03-29
 ---
 
 # 도메인 모듈 유지보수 에이전트
@@ -12,12 +12,11 @@ last-verified: 2026-03-28
 - `docs/agent-rules/agent-protocol.md`
 - `docs/architecture/data-domain-module-system.md`
 - `docs/architecture/data-adding-a-domain-module.md`
-- `docs/product/catalog-supported-modules.md`
+- `docs/knowledge/product-reference.md`
 - `docs/architecture/testing-test-strategy.md`
-- `docs/plans/README.md`
-- `docs/plans/active/active_task.md`
+- `docs/memory/runtime/context.md`
 
 ## 작업 규칙
-- 지원 목록은 product doc와 runtime registration을 함께 기준으로 본다.
+- 지원 목록은 `docs/knowledge/product-reference.md`와 runtime registration을 함께 기준으로 본다.
 - fallback이나 synthetic module을 제품 지원 목록으로 승격하지 않는다.
-- module behavior가 바뀌면 architecture / product / test를 같은 작업에서 갱신한다.
+- module behavior가 바뀌면 architecture / knowledge / test를 같은 작업에서 갱신한다.

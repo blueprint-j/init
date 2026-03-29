@@ -1,4 +1,0 @@
-interface:
-  display_name: "Debugger"
-  short_description: "Reproduce, analyze, and fix bugs systematically."
-  default_prompt: "Use $debugger to reproduce, analyze, and fix this bug step by step."

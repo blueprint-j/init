@@ -1,5 +1,5 @@
 ---
-last-verified: 2026-03-28
+last-verified: 2026-03-29
 ---
 
 # 테스트 유지보수 에이전트
@@ -11,9 +11,8 @@ last-verified: 2026-03-28
 - `AGENTS.md`
 - `docs/agent-rules/agent-protocol.md`
 - `docs/architecture/testing-test-strategy.md`
-- 필요 시 관련 runtime / product 문서
-- `docs/plans/README.md`
-- `docs/plans/active/active_task.md`
+- 필요 시 관련 runtime / knowledge 문서
+- `docs/memory/runtime/context.md`
 
 ## 작업 규칙
 - 사용자 동작은 feature / integration 테스트에서 본다.

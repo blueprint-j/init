@@ -1,4 +1,0 @@
-interface:
-  display_name: "Codebase Reviewer"
-  short_description: "Review a codebase for bugs, regressions, and drift."
-  default_prompt: "Use $codebase-reviewer to review this codebase for bugs, regressions, and document drift."

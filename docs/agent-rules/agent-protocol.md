@@ -1,5 +1,5 @@
 ---
-last-verified: 2026-03-28
+last-verified: 2026-03-29
 ---
 
 # 프로토콜
@@ -8,7 +8,8 @@ last-verified: 2026-03-28
 - 우선순위는 안전·보안 > 정확성 > 사용자 요청 > 단순함 > 저장소 관례다.
 - 목적 달성에 필요한 최소한의 코드만 바꾼다.
 - 기존 스타일, 포매팅, 네이밍을 우선한다.
-- 현재 작업의 shared task spec은 `docs/plans/active/active_task.md` 하나로 유지한다.
+- 현재 작업의 단일 shared runtime context는 `docs/memory/runtime/context.md`로 유지한다.
+- `docs/memory/runtime/dailylog.md`는 짧은 진행 로그와 관찰 메모용으로만 사용한다.
 - 실행 전에는 관련 코드, 설정, 문서, 테스트를 먼저 확인한다.
 - 확인하지 않은 것을 확인했다고 말하지 않는다.
 - 정확성, 보안, API 계약, 데이터 모델, UX에 영향이 큰 불확실성은 질문한다. 그 외는 가정을 명시하고 진행한다.
@@ -33,13 +34,16 @@ last-verified: 2026-03-28
 - 영향 범위가 넓은 변경은 바뀌는 동작과 유지되는 동작을 함께 보고한다.
 
 ## 실행 / 디버깅
+- 시작 시 `AGENTS.md`, 이 문서, 관련 role guide를 읽고 `docs/memory/runtime/context.md`에 현재 목표와 완료 기준을 정리한다.
+- 판단, blocker, 새 가정이 생기면 `context.md`나 `dailylog.md`에 즉시 반영한다.
 - 작업을 검증 가능한 목표로 전환한다.
 - 가능하면 작게 바꾸고 바로 검증한다.
 - 같은 접근으로 3번 연속 실패하면 멈추고 원인과 다음 선택지를 정리한다.
-- 반복되는 실패 패턴은 `docs/agent-rules/` 또는 `docs/memory/memory-bank-systemPatterns.md` 갱신 대상으로 본다.
+- 반복되는 실패 패턴은 `docs/agent-rules/` 또는 `docs/knowledge/system-patterns.md` 갱신 대상으로 본다.
 
 ## 테스트 / 완료 보고
 - 퍼블릭 인터페이스와 기대 동작 중심으로 검증한다.
 - 관련 테스트를 우선 실행하고, 이후 필요 시 범위를 넓힌다.
-- live 문서를 바꿨다면 `scripts/docs-audit.ps1`를 함께 점검한다.
+- live 문서를 바꿨다면 `docs/agent-rules/doc-hygiene/docs-audit.ps1`를 함께 점검한다.
+- durable한 결과는 `docs/agent-rules/`, `docs/architecture/`, `docs/knowledge/`로 직접 승격하고, `docs/memory/runtime/`은 다음 작업을 위해 가볍게 정리한다.
 - 실행하지 못한 항목은 `미검증`으로 분리한다.

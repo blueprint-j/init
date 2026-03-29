@@ -1,5 +1,5 @@
 ---
-last-verified: 2026-03-28
+last-verified: 2026-03-29
 ---
 
 # Runtime Config And Services
@@ -12,7 +12,7 @@ last-verified: 2026-03-28
 - shared service는 hidden lookup보다 명시적 주입을 우선한다.
 - runtime contract가 바뀌면 관련 테스트와 문서를 같은 작업에서 갱신한다.
 
-## 이 프로젝트에서 채워 넣을 항목
-- 주요 config 파일: `{{CONFIG_PATHS}}`
-- service registry / container 경로: `{{SERVICE_CONTAINER_PATHS}}`
-- 환경 템플릿 경로: `{{ENV_TEMPLATE_PATHS}}`
+## 이 문서에 함께 남길 항목
+- 주요 config 파일
+- service registry / container 경로
+- 환경 템플릿 경로
