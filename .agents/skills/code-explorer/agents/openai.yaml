@@ -1,4 +1,0 @@
-interface:
-  display_name: "Code Explorer"
-  short_description: "Trace feature flow from entrypoint to output."
-  default_prompt: "Use $code-explorer to trace this feature end to end before we modify it."

@@ -1,5 +1,5 @@
----
-last-verified: 2026-03-29
+﻿---
+last-verified: 2026-03-30
 ---
 
 # 프로토콜
@@ -34,7 +34,7 @@ last-verified: 2026-03-29
 - 영향 범위가 넓은 변경은 바뀌는 동작과 유지되는 동작을 함께 보고한다.
 
 ## 실행 / 디버깅
-- 시작 시 `AGENTS.md`, 이 문서, 관련 role guide를 읽고 `docs/memory/runtime/context.md`에 현재 목표와 완료 기준을 정리한다.
+- 시작 시 `AGENTS.md`, 이 문서, 관련 canonical 문서를 읽고 `docs/memory/runtime/context.md`에 현재 목표와 완료 기준을 정리한다.
 - 판단, blocker, 새 가정이 생기면 `context.md`나 `dailylog.md`에 즉시 반영한다.
 - 작업을 검증 가능한 목표로 전환한다.
 - 가능하면 작게 바꾸고 바로 검증한다.
@@ -44,6 +44,6 @@ last-verified: 2026-03-29
 ## 테스트 / 완료 보고
 - 퍼블릭 인터페이스와 기대 동작 중심으로 검증한다.
 - 관련 테스트를 우선 실행하고, 이후 필요 시 범위를 넓힌다.
-- live 문서를 바꿨다면 `docs/agent-rules/doc-hygiene/docs-audit.ps1`를 함께 점검한다.
+- live 문서를 바꿨다면 관련 검증 도구나 체크리스트가 있을 때만 함께 점검한다.
 - durable한 결과는 `docs/agent-rules/`, `docs/architecture/`, `docs/knowledge/`로 직접 승격하고, `docs/memory/runtime/`은 다음 작업을 위해 가볍게 정리한다.
 - 실행하지 못한 항목은 `미검증`으로 분리한다.

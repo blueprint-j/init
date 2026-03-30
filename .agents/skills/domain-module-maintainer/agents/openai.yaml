@@ -1,4 +1,0 @@
-interface:
-  display_name: "Domain Module Maintainer"
-  short_description: "Review supported module alignment and drift."
-  default_prompt: "Use $domain-module-maintainer to review this supported module change."

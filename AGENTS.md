@@ -1,4 +1,4 @@
-# AGENTS 지도
+﻿# AGENTS 지도
 
 이 파일은 `docs/` 구조의 최상위 계약이다. 상세 규칙과 장기 지식은 가장 구체적인 canonical source 한 곳에만 둔다.
 
@@ -24,7 +24,7 @@
 
 | 순서 | 경로 | 역할 |
 | --- | --- | --- |
-| 1 | `docs/agent-rules/README.md` | 역할별 guide 진입점 |
+| 1 | `docs/agent-rules/README.md` | 에이전트 규칙 진입점 |
 | 2 | `docs/agent-rules/agent-protocol.md` | 공통 행동 계약 |
 | 3 | `docs/architecture/index.md` | 내부 구조 지도 |
 | 4 | `docs/knowledge/README.md` | 장기 참조 지식 진입점 |
@@ -35,12 +35,7 @@
 
 | 작업 | 먼저 읽을 문서 |
 | --- | --- |
-| 문서 구조 / AI 운영 규칙 수정 | `docs/agent-rules/doc-hygiene.md` → `docs/memory/index.md` → `docs/knowledge/README.md` |
-| 문서 / 코드 drift 점검 | `docs/agent-rules/doc-code-drift.md` |
-| 코드 구조 설계 / 구현 청사진 작성 | `docs/agent-rules/code-architect.md` → `docs/architecture/index.md` → `docs/knowledge/product-reference.md` |
-| 기능 흐름 추적 / 코드 조사 | `docs/agent-rules/code-explorer.md` → `docs/architecture/index.md` → `docs/knowledge/product-reference.md` |
-| 버그 재현 / 디버깅 | `docs/agent-rules/debugger.md` → `docs/architecture/testing-test-strategy.md` |
-| 런타임 / 백엔드 변경 | `docs/agent-rules/runtime-maintainer.md` → `docs/architecture/index.md` |
-| 사용자 표면 / UI / SEO / 산출물 수정 | `docs/agent-rules/surface-maintainer.md` → `docs/knowledge/product-reference.md` |
-| 도메인 모듈 추가 / 변경 | `docs/agent-rules/domain-module-maintainer.md` → `docs/architecture/data-adding-a-domain-module.md` |
-| 테스트 작성 / 수정 | `docs/agent-rules/test-maintainer.md` → `docs/architecture/testing-test-strategy.md` |
+| 문서 구조 / AI 운영 규칙 수정 | `docs/agent-rules/agent-protocol.md` → `docs/knowledge/documentation-reference.md` → `docs/memory/index.md` |
+| 내부 구조 파악 / 변경 | `docs/agent-rules/agent-protocol.md` → `docs/architecture/index.md` |
+| 사용자 노출 정책 / 장기 기준 확인 | `docs/agent-rules/agent-protocol.md` → `docs/knowledge/README.md` |
+| 테스트 전략 확인 | `docs/agent-rules/agent-protocol.md` → `docs/architecture/testing-test-strategy.md` |
