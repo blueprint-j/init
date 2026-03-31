@@ -1,5 +1,5 @@
----
-last-verified: 2026-03-29
+﻿---
+last-verified: 2026-03-31
 ---
 
 # 런타임 설정과 서비스 조립
@@ -9,20 +9,21 @@ last-verified: 2026-03-29
 
 ## 이 문서가 다루는 것
 - 환경 변수, 설정 파일, 기본값의 단일 정의 위치
-- service registry, container, factory wiring이 모이는 지점
-- shared dependency를 명시적으로 주입하는 구조 기준
+- 서비스 조립, 초기화, 공용 의존성 연결이 모이는 지점
+- 확인된 의존성 주입 또는 설정 전달 방식
 
 ## 이 문서가 다루지 않는 것
 - 요청이 진입점에서 응답까지 흐르는 순서
-- repository, query builder, read model의 책임 분리
+- 도메인별 내부 책임 분리의 세부 설계
 - 사용자 노출 정책과 지원 범위
 
 ## 핵심 규칙
 - 환경값과 기본값은 한 경로에서만 정의하고, 다른 문서에는 링크만 둔다.
-- shared service는 hidden lookup보다 명시적 주입을 우선한다.
+- 의존성 전달 방식은 실제 코드에서 확인된 패턴만 기록한다.
 - runtime contract가 바뀌면 관련 테스트와 문서를 같은 작업에서 갱신한다.
 
 ## 이 문서에 함께 남길 항목
 - 주요 config 파일
-- service registry / container 경로
-- 환경 템플릿 경로
+- 서비스 조립 또는 초기화 경로
+- 환경 템플릿 또는 예시 설정 경로
+- `TODO(project-specific)`: 아직 확인되지 않은 wiring anchor
