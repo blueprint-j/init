@@ -23,5 +23,5 @@
 
 ## 관련 문서
 - `AGENTS.md`
-- `docs/architecture/index.md`
+- `docs/architecture/README.md`
 - `docs/memory/index.md`

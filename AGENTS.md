@@ -26,10 +26,11 @@
 | --- | --- | --- |
 | 1 | `docs/agent-rules/README.md` | 에이전트 규칙 진입점 |
 | 2 | `docs/agent-rules/agent-protocol.md` | 공통 행동 계약 |
-| 3 | `docs/architecture/index.md` | 내부 구조 지도 |
-| 4 | `docs/knowledge/README.md` | 장기 참조 지식 진입점 |
-| 5 | `docs/memory/index.md` | runtime memory 운영 원칙 |
-| 6 | `docs/memory/runtime/context.md` | 현재 작업 상태 |
+| 3 | `docs/agent-rules/skill-routing.md` | 전체 스킬 라우팅 요약 |
+| 4 | `docs/architecture/README.md` | 내부 구조 지도 |
+| 5 | `docs/knowledge/README.md` | 장기 참조 지식 진입점 |
+| 6 | `docs/memory/index.md` | runtime memory 운영 원칙 |
+| 7 | `docs/memory/runtime/context.md` | 현재 작업 상태 |
 
 ## 작업 유형별 빠른 경로
 
