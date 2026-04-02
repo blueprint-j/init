@@ -37,6 +37,6 @@
 | 작업 | 먼저 읽을 문서 |
 | --- | --- |
 | 문서 구조 / AI 운영 규칙 수정 | `docs/agent-rules/agent-protocol.md` → `docs/knowledge/documentation-reference.md` → `docs/memory/index.md` |
-| 내부 구조 파악 / 변경 | `docs/agent-rules/agent-protocol.md` → `docs/architecture/index.md` |
+| 내부 구조 파악 / 변경 | `docs/agent-rules/agent-protocol.md` → `docs/architecture/README.md` |
 | 사용자 노출 정책 / 장기 기준 확인 | `docs/agent-rules/agent-protocol.md` → `docs/knowledge/README.md` |
 | 테스트 전략 확인 | `docs/agent-rules/agent-protocol.md` → `docs/architecture/testing-test-strategy.md` |
