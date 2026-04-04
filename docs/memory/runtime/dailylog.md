@@ -7,3 +7,7 @@
 
 ## Entries
 - `TODO(project-specific)`: `YYYY-MM-DD: 한 줄 진행 로그`
+- `2026-04-04: docs 폴더의 랜딩 문서와 상위 읽기 지도를 실제 구조 기준으로 정리 시작`
+- `2026-04-04: AGENTS와 각 폴더 랜딩 문서의 경계 설명을 재작성하고 죽은 참조를 제거함`
+- `2026-04-04: prompt.md, rewrite.md, documentation-reference.md를 현재 README/index 혼합 구조 기준으로 정렬 시작`
+- `2026-04-04: prompt, rewrite, documentation-reference에서 예전 구조 참조 제거와 summary layer 규칙 정렬을 완료함`

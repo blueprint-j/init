@@ -1,4 +1,4 @@
-﻿# 범용 Docs 하네스 Init Prompt
+# 범용 Docs 하네스 Init Prompt
 
 아래 프롬프트를 새 프로젝트의 에이전트에게 그대로 전달해, `docs/` 문서 하네스를 생성하고 초기화하라.
 
@@ -56,11 +56,12 @@
 ```text
 AGENTS.md
 docs/
+  README.md
   agent-rules/
     README.md
     agent-protocol.md
   architecture/
-    index.md
+    README.md
     runtime-request-lifecycle.md
     runtime-config-and-services.md
     testing-test-strategy.md
@@ -80,20 +81,26 @@ docs/
 ### 1. `AGENTS.md`
 
 - 이 문서는 루트 summary layer다.
-- `docs/` 전체 구조의 최상위 계약만 적어라.
-- 읽기 순서는 반드시 `agent-rules -> architecture -> knowledge -> memory/runtime` 순으로 안내하라.
-- 각 축이 소유하는 것과 소유하지 않는 것을 짧게 구분하라.
-- 작업 유형별 빠른 읽기 경로를 넣되, 프로젝트 특화 문서는 `TODO(project-specific)`로 남겨라.
-- 빠른 읽기 경로는 템플릿을 복사하지 말고, 실제 코드베이스에서 확인한 구조를 기준으로 맞춰라.
+- `docs/` 전체 구조의 읽기 순서와 경계만 적어라.
+- 행동 규칙의 canonical source는 반드시 `docs/agent-rules/agent-protocol.md`로 고정하라.
+- 기본 읽기 순서는 `docs/agent-rules/agent-protocol.md` → `docs/README.md` → 관련 축의 시작 문서 → 현재 작업이면 `docs/memory/runtime/context.md` 순으로 안내하라.
+- 4축 각각이 소유하는 것과 시작 문서를 짧게 구분하라.
+- 작업 유형별 빠른 읽기 경로를 넣되, 실제 존재하는 문서만 참조하라.
 
-### 2. `docs/agent-rules/README.md`
+### 2. `docs/README.md`
+
+- 이 문서는 `docs/` 전체의 최상위 summary layer다.
+- 4축의 경계, 라우팅 기준, 기본 읽기 순서만 적어라.
+- 상세 정책이나 프로젝트 특화 사실은 이 문서에 두지 마라.
+
+### 3. `docs/agent-rules/README.md`
 
 - `agent-rules` 축의 진입점 역할만 하게 하라.
 - 공통 계약 문서로 `agent-protocol.md`를 먼저 읽게 하라.
 - 이 템플릿은 역할별 guide를 기본 생성하지 않는다고 명시하라.
 - 프로젝트에 특화된 guide가 필요할 때만 후속 추가 대상으로 남겨라.
 
-### 3. `docs/agent-rules/agent-protocol.md`
+### 4. `docs/agent-rules/agent-protocol.md`
 
 - 에이전트 공통 행동 규칙의 canonical source로 작성하라.
 - 아래 내용을 그대로 보존해 초기화하라. 단, 날짜나 프로젝트 특화 승인 항목만 필요 시 조정할 수 있다.
@@ -152,39 +159,39 @@ last-verified: TODO(project-specific)
 
 - 이 템플릿은 `agent-protocol.md`만 기본 생성하고, 추가 role guide는 필요할 때만 optional로 제안하라.
 
-### 4. `docs/architecture/index.md`
+### 5. `docs/architecture/README.md`
 
 - 내부 구조와 wiring 안내의 summary layer로 작성하라.
-- 이 폴더가 답하는 질문과 답하지 않는 질문을 구분하라.
+- 이 폴더가 다루는 것과 다루지 않는 것을 구분하라.
 - 하위 문서 선택 기준을 짧게 안내하라.
 - 사용자 약속이나 제품 정책은 이 폴더에 두지 말고 `docs/knowledge/`로 보내라.
 - 실제 코드베이스를 탐색한 결과, 요청 흐름/설정/테스트 외에 별도 축이 필요하지 않으면 기본 문서만 유지하라.
 
-### 5. `docs/architecture/runtime-request-lifecycle.md`
+### 6. `docs/architecture/runtime-request-lifecycle.md`
 
 - 요청이나 작업 흐름이 어떤 진입점에서 시작해 어떤 계층을 거쳐 응답 또는 결과로 이어지는지 설명하는 자리로 초기화하라.
 - 현재 프로젝트에 구체적인 런타임 정보가 없으면 일반 구조와 `TODO(project-specific)` anchor만 남겨라.
 - 엔트리포인트, 라우팅, CLI, 작업 큐, 배치 잡 등 실제 코드 경로를 탐색한 뒤 그 결과에 맞게 서술하라.
 
-### 6. `docs/architecture/runtime-config-and-services.md`
+### 7. `docs/architecture/runtime-config-and-services.md`
 
 - 설정값, 컨테이너, 서비스 wiring, 조립 지점을 기록하는 문서로 초기화하라.
 - 특정 프레임워크의 DI 구조를 추정해 적지 말고, 필요한 섹션만 만들어 두어라.
 - 실제 설정 파일, 서비스 등록 지점, 의존성 주입 패턴이 확인된 경우에만 반영하라.
 
-### 7. `docs/architecture/testing-test-strategy.md`
+### 8. `docs/architecture/testing-test-strategy.md`
 
 - 테스트 책임 분리와 기본 검증 전략의 canonical source로 초기화하라.
 - 단위 테스트, 통합 테스트, 엔드투엔드 또는 시스템 테스트를 어떻게 나눌지 범용적으로 정리하라.
 - 실제 도구명은 확인된 경우에만 적고, 그렇지 않으면 `TODO(project-specific)`로 남겨라.
 - 테스트 디렉터리와 CI 구성을 탐색한 결과를 반영하라.
 
-### 8. `docs/knowledge/README.md`
+### 9. `docs/knowledge/README.md`
 
 - 장기 지식 허브라는 점만 설명하는 summary layer로 작성하라.
 - 내부 wiring은 `architecture`, 현재 작업 메모는 `memory/runtime`에 둔다고 안내하라.
 
-### 9. `docs/knowledge/documentation-reference.md`
+### 10. `docs/knowledge/documentation-reference.md`
 
 - 문서 운영 기준의 canonical source로 작성하라.
 - 아래 개념은 반드시 포함하라.
@@ -194,20 +201,22 @@ last-verified: TODO(project-specific)
   - daily log
   - 문서 라우팅 기준
 - 문서 축은 `agent-rules`, `architecture`, `knowledge`, `memory/runtime` 네 개로 고정하라.
+- summary layer 목록은 실제 구조 기준으로 적어라: `AGENTS.md`, `docs/README.md`, `docs/agent-rules/README.md`, `docs/architecture/README.md`, `docs/knowledge/README.md`, `docs/memory/index.md`.
 
-### 10. `docs/knowledge/product-reference.md`
+### 11. `docs/knowledge/product-reference.md`
 
 - 사용자에게 드러나는 동작, 지원 범위, 장기 정책을 기록하는 자리로 초기화하라.
 - 프로젝트 성격이 아직 확정되지 않았다면 매우 얇게 작성하고 `TODO(project-specific)` placeholder를 남겨라.
 - 내부 wiring이나 임시 작업 메모는 여기에 두지 마라.
 - 실제 사용자 표면, 공개 API, 지원 범위가 코드나 기존 문서에서 확인된 경우에만 구체화하라.
 
-### 11. `docs/memory/index.md`
+### 12. `docs/memory/index.md`
 
 - live runtime memory 계층이라는 점만 설명하라.
 - durable한 사실은 장기 문서로 승격하고, runtime 문서는 disposable하게 유지한다고 적어라.
+- 이 축의 시작 문서는 `index.md`를 유지한다고 명시하라.
 
-### 12. `docs/memory/runtime/context.md`
+### 13. `docs/memory/runtime/context.md`
 
 - 현재 작업의 단일 상태 문서로 초기화하라.
 - 아래 기본 섹션을 넣어라.
@@ -219,18 +228,21 @@ last-verified: TODO(project-specific)
 - 상태값은 최소한 `in_progress` 또는 `completed` 중 하나를 사용하라.
 - 작업 중에는 `in_progress`, 작업 완료 후 정리 단계에서는 `completed`로 갱신하라.
 
-### 13. `docs/memory/runtime/dailylog.md`
+### 14. `docs/memory/runtime/dailylog.md`
 
 - 짧은 진행 로그와 임시 관찰 메모용으로 초기화하라.
 - 장기 기록 저장소처럼 쓰지 않도록 안내 문구를 넣어라.
 
 ## summary layer 규칙
 
-아래 문서는 모두 summary layer로 유지하라.
+아래 문서는 summary layer로 유지하라.
 
 - `AGENTS.md`
-- 각 폴더의 `README.md`
-- 각 폴더의 `index.md`
+- `docs/README.md`
+- `docs/agent-rules/README.md`
+- `docs/architecture/README.md`
+- `docs/knowledge/README.md`
+- `docs/memory/index.md`
 
 summary layer에서는 아래만 말하라.
 
@@ -268,7 +280,6 @@ summary layer에서 아래는 하지 마라.
 - `docs/architecture/publishing-seo-and-sitemaps.md`
 - `docs/agent-rules/<project-specific-guide>.md`
 - `.agents/skills/<project-specific-skill>/`
-- `docs/agent-rules/doc-hygiene/docs-audit.ps1`
 
 추가 제안 시에는 "왜 이 프로젝트에 필요한지"를 한 줄로 설명하라.
 
@@ -285,14 +296,15 @@ summary layer에서 아래는 하지 마라.
 작업이 끝나기 전에 아래를 점검하라.
 
 1. 루트에 `AGENTS.md`와 `docs/` 4축 구조가 생성되었는가
-2. `AGENTS.md`의 읽기 순서가 `agent-rules -> architecture -> knowledge -> memory/runtime`와 일치하는가
-3. `README.md`와 `index.md`가 summary layer로만 작성되었는가
-4. 세부 정책이 더 구체적인 canonical source로 내려가 있는가
-5. 프로젝트 특화 사실이 `TODO(project-specific)` 없이 단정되어 있지 않은가
-6. `context.md`와 `dailylog.md`가 disposable runtime memory 용도로 초기화되었는가
-7. `context.md`의 맨 마지막 `Status` 값이 현재 상태를 정확히 반영하는가
-8. optional 문서를 기본값으로 생성하지 않았는가
-9. 코드베이스 탐색 결과가 아키텍처, 테스트, 사용자 표면 문서에 반영되었는가
+2. `docs/README.md`가 4축 경계와 라우팅 기준을 안내하는 최상위 지도 역할을 하는가
+3. `AGENTS.md`와 각 축의 시작 문서가 실제 존재하는 파일을 가리키는가
+4. summary layer 문서들이 상세 정책 대신 읽기 순서와 경계만 안내하는가
+5. 세부 정책이 더 구체적인 canonical source로 내려가 있는가
+6. 프로젝트 특화 사실이 `TODO(project-specific)` 없이 단정되어 있지 않은가
+7. `context.md`와 `dailylog.md`가 disposable runtime memory 용도로 초기화되었는가
+8. `context.md`의 맨 마지막 `Status` 값이 현재 상태를 정확히 반영하는가
+9. optional 문서를 기본값으로 생성하지 않았는가
+10. 코드베이스 탐색 결과가 아키텍처, 테스트, 사용자 표면 문서에 반영되었는가
 
 ## 최종 결과 보고 형식
 
