@@ -1,37 +1,37 @@
 ﻿# AGENTS 지도
 
-이 파일은 이 저장소의 문서 읽기 순서와 경계만 안내하는 summary layer다. 행동 규칙의 canonical source는 `docs/agent-rules/agent-protocol.md`다.
+이 파일은 코딩 AI 에이전트의 최상위 summary layer이자 읽기 지도다. 행동, 기록, SSOT에 관한 공통 계약의 canonical source는 `docs/agent-rules/agent-protocol.md`에 유지한다.
 
-## 최우선 원칙
-- 작업 시작 전 `docs/agent-rules/agent-protocol.md`를 먼저 읽는다.
-- `AGENTS.md`는 규칙 본문을 반복하지 않는다.
-- 현재 작업 상태는 `docs/memory/runtime/context.md`, 짧은 진행 로그는 `docs/memory/runtime/dailylog.md`에만 둔다.
+* **스택**: `Python 3.12`, `uv`, `JSON/YAML config`, `PostgreSQL`
+* **언어**: `Korean`
 
-## docs 구조
+## 최우선 안내
+- 모든 에이전트는 작업을 시작하기 전, 반드시 `docs/agent-rules/agent-protocol.md`에 명시된 절대 원칙을 최우선으로 숙지한다.
+- `AGENTS.md`는 summary layer다. 행동, 기록, SSOT, 사용자 확인 규칙의 원문은 `docs/agent-rules/agent-protocol.md`만 따른다.
 
-| 축 | 소유 범위 | 시작 문서 |
+## 문서 안내
+
+| 순서 | 경로 | 내용 |
 | --- | --- | --- |
-| `docs/agent-rules/` | 에이전트 행동 규칙, 승인 기준, 검증 계약 | `docs/agent-rules/README.md` |
-| `docs/architecture/` | 내부 구조, 요청 흐름, 설정과 서비스 wiring, 테스트 경계 | `docs/architecture/README.md` |
-| `docs/knowledge/` | 사용자 노출 기준, 문서 운영 기준, 장기 참조 사실 | `docs/knowledge/README.md` |
-| `docs/memory/` | 현재 작업의 live state와 임시 로그 | `docs/memory/index.md` |
+| 1 | `docs/agent-rules/README.md` | 에이전트 역할 지도와 역할별 단일 guide 진입점 |
+| 2 | `docs/agent-rules/agent-protocol.md` | 모든 에이전트가 공통으로 따르는 행동, 구현, 보안, 검증 계약 |
+| 3 | `docs/architecture/index.md` | 시스템 구조 지도와 세부 아키텍처 진입점 |
+| 4 | `docs/product/index.md` | 사용자/운영자 노출 표면, 데이터 계약, 운영 안전 규칙 진입점 |
+| 5 | `docs/knowledge/index.md` | 프로젝트별 장기 사실, 패턴, 설계 결정 진입점 |
+| 6 | `docs/memory/index.md` | live agent state 구조 안내 |
+| 7 | `docs/memory/runtime/context.md` | 현재 작업 status, 목표, 완료 기준, blocker |
+| 8 | `docs/memory/runtime/dailylog.md` | 시계열 작업 로그와 판단 기록 |
 
-`docs/README.md`는 이 네 축을 한 번에 보는 최상위 지도다.
-
-## 기본 읽기 순서
-1. `docs/agent-rules/agent-protocol.md`
-2. `docs/README.md`
-3. 작업과 직접 관련된 축의 시작 문서
-4. 현재 작업이면 `docs/memory/runtime/context.md`
-
-## 작업별 빠른 경로
+## 작업 유형별 빠른 경로
 
 | 작업 | 먼저 읽을 문서 |
 | --- | --- |
-| 문서 구조 / 운영 규칙 정리 | `docs/README.md` → `docs/knowledge/documentation-reference.md` |
-| 내부 구조 파악 / 변경 | `docs/architecture/README.md` |
-| 요청 흐름 추적 | `docs/architecture/runtime-request-lifecycle.md` |
-| 설정 / 서비스 wiring 확인 | `docs/architecture/runtime-config-and-services.md` |
-| 테스트 기준 확인 | `docs/architecture/testing-test-strategy.md` |
-| 사용자 노출 기준 확인 | `docs/knowledge/product-reference.md` |
-| 현재 작업 상태 확인 | `docs/memory/runtime/context.md` |
+| 문서 구조 / AI 운영 규칙 수정 | `docs/agent-rules/doc-hygiene.md` → `docs/knowledge/index.md` → `docs/memory/index.md` |
+| 문서 / 코드 drift 점검 | `docs/agent-rules/doc-hygiene.md` → `.agents/skills/doc-audit/SKILL.md` |
+| 코드 구조 설계 / 구현 청사진 작성 | `docs/architecture/index.md` → `docs/product/index.md` → 필요 시 `docs/knowledge/decisions/` |
+| 기능 흐름 추적 / 코드 조사 | `docs/architecture/index.md` → `docs/product/index.md` |
+| 버그 재현 / 디버깅 | `docs/architecture/testing-test-strategy.md` → `docs/memory/runtime/context.md` |
+| 런타임 / 백엔드 변경 | `docs/architecture/index.md` → `docs/product/index.md` |
+| CLI / 산출물 / publish 문서 수정 | `docs/agent-rules/doc-hygiene.md` → `docs/product/index.md` |
+| 도메인 모듈 추가 / 변경 | `docs/architecture/data-adding-a-domain-module.md` → `docs/product/catalog-supported-modules.md` |
+| 테스트 작성 / 수정 | `docs/architecture/testing-test-strategy.md` |
