@@ -2,7 +2,7 @@
 
 이 파일은 코딩 AI 에이전트의 최상위 summary layer이자 읽기 지도다. 행동, 기록, SSOT에 관한 공통 계약의 canonical source는 `docs/agent-rules/agent-protocol.md`에 유지한다.
 
-* **스택**: `Python 3.12`, `uv`, `JSON/YAML config`, `PostgreSQL`
+* **스택**: 
 * **언어**: `Korean`
 
 ## 최우선 안내
