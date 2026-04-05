@@ -11,3 +11,6 @@
 - `2026-04-04: AGENTS와 각 폴더 랜딩 문서의 경계 설명을 재작성하고 죽은 참조를 제거함`
 - `2026-04-04: prompt.md, rewrite.md, documentation-reference.md를 현재 README/index 혼합 구조 기준으로 정렬 시작`
 - `2026-04-04: prompt, rewrite, documentation-reference에서 예전 구조 참조 제거와 summary layer 규칙 정렬을 완료함`
+- `2026-04-05: AGENTS의 기본 읽기 경로와 빠른 경로를 실제 존재하는 baseline 문서 기준으로 재정렬함`
+- `2026-04-05: runtime context를 현재 점검 작업 기준으로 갱신하고, docs audit를 방해하던 .gitignore의 잘못된 glob 한 줄을 제거함`
+- `2026-04-05: prompt.md에서 optional add-on 예시가 baseline 생성 계약처럼 읽히지 않도록 안내 문구를 보강함`
