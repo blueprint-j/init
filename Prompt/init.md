@@ -1,56 +1,84 @@
 ﻿# 범용 Docs 하네스 Init Prompt
 
+아래 프롬프트를 새 프로젝트의 에이전트에게 그대로 전달해, `docs/` 문서 하네스를 생성하고 초기화하라.
+
+---
+
 당신은 프로젝트 루트에서 문서 하네스를 초기화하는 에이전트다.
 
-목표는 프로젝트의 실제 코드베이스를 먼저 탐색한 뒤,
-재사용 가능한 `docs/` 운영 구조를 생성하거나 기존 구조를 최소 수정으로 4축에 정렬하는 것이다.
+목표는 범용 프로젝트에서 재사용 가능한 `docs/` 운영 구조를 생성하는 것이다. 이 구조는 다음 4축을 기준으로 문서를 분리한다.
 
-출력 언어는 한국어로 작성하되, 파일명, 경로명, 상태값은 English를 유지한다.
-
-## 공통 원칙
-1. 먼저 저장소를 탐색하고, 확인한 사실만 기록하라.
-2. 확인되지 않은 내용은 추정하지 말고 `미확인`, `해당 없음`, `TODO(project-specific)` 중 하나로 남겨라.
-3. 문서 역할은 `summary layer`, `canonical source`, `runtime memory`로 구분하라.
-4. durable한 사실은 `docs/agent-rules/`, `docs/architecture/`, `docs/knowledge/`에 두고, `docs/memory/runtime/`은 disposable하게 유지하라.
-5. 상위 summary layer에는 읽기 순서, 경계, 라우팅만 두고 상세 정책은 canonical source에만 둬라.
-6. 최소 수정 원칙을 지켜라. 가능한 한 작은 diff를 우선하라.
-7. 삭제, 대규모 이동, 공개 API 계약 변경, CI/CD 변경, 운영 설정 변경은 승인 없이는 수행하지 마라.
-
-## 작업 범위
-- baseline Docs Harness 생성 또는 정렬
-- 기존 문서 체계와의 병합 판단
-- 필요한 경우에만 optional add-on 제안
-- AI 시스템 흔적이 있는 경우 관련 문서화 필요성 표시
-
-[Task: Init Docs Harness]
-
-목표는 프로젝트에 재사용 가능한 `docs/` 운영 구조를 생성하거나, 기존 구조를 최소 수정으로 4축에 정렬하는 것이다.
-
-## 4축
 - `docs/agent-rules`: 에이전트 행동 규칙
-- `docs/architecture`: 내부 구조, wiring, 테스트 전략
+- `docs/architecture`: 내부 구조, wiring, 테스트 구조
 - `docs/knowledge`: 사용자 약속, 장기 정책, 문서 운영 기준
 - `docs/memory/runtime`: 현재 작업 상태와 짧은 진행 로그
 
-## 작업 순서
-1. 저장소 구조를 탐색하라.
-2. 기존 문서 체계가 있으면 병합 가능한지 판단하라.
-3. baseline tree를 생성하거나 최소 수정으로 정렬하라.
-4. summary layer는 얇게 유지하고, 상세 내용은 canonical source에만 내려라.
-5. 확인되지 않은 프로젝트 특화 사실은 `TODO(project-specific)`로 남겨라.
-6. optional 문서는 코드베이스 근거가 있을 때만 추가 제안하라.
+출력 언어는 한국어로 작성하되, 파일명과 경로명은 영어를 유지한다.
 
-## 반드시 탐색할 항목
+## 하네스 운영 목표
+
+- 이 프롬프트의 목적은 초기 문서만 만드는 것이 아니라, 이후 세션의 에이전트가 같은 기준으로 다시 진입할 수 있는 운영 하네스를 세팅하는 것이다.
+- 하네스는 프롬프트 내부 기억에 의존하지 않고, 문서를 외부 실행 인터페이스처럼 사용하도록 설계되어야 한다.
+- 새 에이전트가 `AGENTS.md`, 관련 canonical source, `docs/memory/runtime/context.md`를 읽고 짧은 시간 안에 현재 작업 맥락을 재구성할 수 있어야 한다.
+- 장기 사실, 현재 작업 상태, 짧은 진행 로그, 검증 결과, 개선 후보를 한 문서에 섞지 말고 역할별로 분리해야 한다.
+
+## 작업 원칙
+
+1. 먼저 현재 프로젝트의 코드베이스와 파일 구조를 탐색하라.
+2. 이미 문서 체계가 있으면 충돌 없이 병합 가능한지 판단하라.
+3. 기존 문서를 불필요하게 지우지 말고, 최소 수정으로 4축 구조에 정렬시켜라.
+4. 문서 구조는 템플릿을 기계적으로 복제하지 말고, 코드베이스에서 실제로 필요한 수준만 남겨라.
+5. 세부 정책은 가장 구체적인 canonical source에만 두고, 상위 안내 문서는 summary layer로 유지하라.
+6. 프로젝트별 사실을 임의로 단정하지 말고 `TODO(project-specific)` placeholder로 남겨라.
+7. 웹, SEO, 도메인 모듈, 특정 런타임에 치우친 문서는 코드베이스에서 실제 필요가 확인될 때만 추가하라.
+8. optional 문서를 추가했다면 왜 필요한지 결과 보고에 적어라.
+9. 장기 사실은 `docs/agent-rules/`, `docs/architecture/`, `docs/knowledge/` 중 가장 구체적인 canonical source에 두고, 현재 작업 상태는 `docs/memory/runtime/`에만 둬라.
+10. 문서는 설명서가 아니라 다음 에이전트의 작업 재진입 인터페이스라고 가정하라.
+11. 작업 전, 작업 중, 작업 후에 `context.md`와 `dailylog.md`가 현재 상태를 반영하는지 확인하라.
+12. 완료 전에는 자기평가와 개선 승격 판단을 반드시 수행하라.
+13. 이 프롬프트만 입력으로 주어져도 `context.md`와 `dailylog.md`를 빈 골격이 아니라 즉시 사용 가능한 초기 상태로 생성하라.
+
+## 맥락 보존 규칙
+
+- `docs/memory/runtime/context.md`는 현재 작업의 단일 상태 문서다. 목표, 완료 기준, 핵심 판단, 다음 행동을 여기에 모은다.
+- `context.md`는 **작업 단위** 문서다. 작업이 바뀌면 이전 내용을 현재 작업 기준으로 재초기화하라.
+- `docs/memory/runtime/dailylog.md`는 짧은 시계열 로그다. 결정, blocker, 검증, 관찰을 한 줄 단위로만 남긴다.
+- `dailylog.md`는 **세션 단위** 문서다. 새 세션이 시작되면 이전 세션 로그를 덮어쓰고 현재 세션 로그만 유지하라.
+- runtime 문서는 누적 아카이브가 아니라 현재 작업과 현재 세션을 위한 작업 메모다.
+- 한 번성 조사 메모는 runtime에 머물고, 재사용 가능한 규칙이나 구조적 교훈만 durable 문서로 승격하라.
+- 최종 보고에서는 확인한 사실, 가정, 미검증, 개선 후보를 섞지 말고 구분하라.
+
+## 탐색 단계
+
+작업을 시작하면 먼저 아래를 확인하라.
+
+- 루트에 이미 `AGENTS.md`, `README.md`, `docs/`가 있는가
+- 소스 코드는 주로 어느 디렉터리에 있는가
+- 엔트리포인트, 설정 파일, 의존성 매니페스트, 테스트 디렉터리, 빌드 파일이 어디에 있는가
+- 현재 프로젝트가 단일 애플리케이션인지, 라이브러리인지, 다중 패키지인지
+- 기존 문서가 있다면 어떤 문서가 행동 규칙, 아키텍처, 장기 정책, 현재 작업 메모를 담당하는가
+- 현재 프로젝트가 아주 작은 저장소인지, 아니면 장기 운영이 필요한 저장소인지
+- 현재 문서 구조에 죽은 참조, 중복 summary layer, runtime과 durable 문서의 혼재가 있는가
+- 새 에이전트가 다시 들어왔을 때 가장 먼저 알아야 할 재진입 정보가 무엇인가
+- 어떤 사실이 장기 사실이고, 어떤 사실이 현재 작업 전용 상태인지
+
+탐색 시에는 최소한 아래 종류를 확인하라.
+
 - 루트 디렉터리 구조
-- 의존성/빌드 파일
-- 엔트리포인트
-- 설정 파일
-- 테스트 구조
-- CI 설정
-- 기존 문서 체계
-- 프로젝트 유형(단일 앱 / 라이브러리 / 모노레포 등)
+- 의존성/빌드 파일 예: `package.json`, `pyproject.toml`, `go.mod`, `Cargo.toml`, `pom.xml`
+- 실행 진입점 예: 앱 시작 파일, 서버 엔트리, CLI 엔트리
+- 설정 파일 예: 환경설정, 라우팅, 서비스 등록, 배포 설정
+- 테스트 관련 구조 예: `tests/`, `spec/`, `__tests__/`, CI 설정
 
-## baseline tree
+기존 구조가 이미 충분히 유사하면 새 파일을 무분별하게 늘리지 말고, 필요한 파일만 추가하라.
+프로젝트가 매우 작거나 단순하면 하위 문서의 본문을 더 얇게 유지하라.
+프로젝트가 복잡하거나 다중 계층이면 탐색 결과에 따라 optional add-on 문서를 제안하라. 단, optional add-on은 기본 생성 계약이 아니라 코드베이스 근거가 있을 때만 제한적으로 추가한다.
+
+## 생성 대상 트리
+
+기본적으로 아래 파일과 폴더를 생성하거나 초기화하라.
+
+```text
 AGENTS.md
 docs/
   README.md
@@ -71,26 +99,67 @@ docs/
     runtime/
       context.md
       dailylog.md
-
-## 생성 원칙
-- `AGENTS.md`, `docs/README.md`, 각 축의 `README.md`, `docs/memory/index.md`는 summary layer로 유지하라.
-- `agent-protocol.md`, `documentation-reference.md`, `testing-test-strategy.md` 등은 canonical source로 유지하라.
-- `context.md`, `dailylog.md`는 runtime memory로만 사용하라.
-- 기존 구조가 충분히 유사하면 새 파일을 무분별하게 늘리지 마라.
+```
 
 ## 파일별 작성 규칙
 
 ### 1. `AGENTS.md`
 
 - 이 문서는 루트 summary layer다.
-- `docs/` 전체 구조의 최상위 계약만 적어라.
-- 행동 규칙의 canonical source는 반드시 docs/agent-rules/agent-protocol.md로 고정하라.
-- docs/agent-rules/README.md는 진입점 역할만 하며 템플릿 역할별 가이드는 기본 생성하지 않음을 명시하라.
+- `docs/` 전체 구조의 읽기 순서와 경계만 적어라.
+- 형식은 "지도"처럼 읽히게 구성하라. 짧은 소개 문단, 메타데이터, 우선 안내, 문서 안내 표를 사용하라.
+- 행동 규칙의 canonical source는 반드시 `docs/agent-rules/agent-protocol.md`로 고정하라.
+- 기본 읽기 순서는 `docs/agent-rules/agent-protocol.md` → `docs/README.md` → 관련 축의 시작 문서 → 현재 작업이면 `docs/memory/runtime/context.md` 순으로 안내하라.
+- 4축 각각이 소유하는 것과 시작 문서를 짧게 구분하라.
+- `AGENTS.md`는 아래처럼 생긴 "읽기 지도" 형식으로 생성하되, 경로와 문서명은 실제 생성된 구조에 맞춰 조정하라.
 
-### 2. `docs/agent-rules/agent-protocol.md`
+```md
+# AGENTS 지도
+
+이 파일은 코딩 AI 에이전트의 최상위 summary layer이자 읽기 지도다. 행동, 기록, SSOT에 관한 공통 계약의 canonical source는 `docs/agent-rules/agent-protocol.md`에 유지한다.
+
+* **스택**: `TODO(project-specific)`
+* **언어**: `Korean`
+
+## 최우선 안내
+- 모든 에이전트는 작업을 시작하기 전, 반드시 `docs/agent-rules/agent-protocol.md`에 명시된 절대 원칙을 최우선으로 숙지한다.
+- `AGENTS.md`는 summary layer다. 행동, 기록, SSOT, 사용자 확인 규칙의 원문은 `docs/agent-rules/agent-protocol.md`만 따른다.
+
+## 문서 안내
+| 순서 | 경로 | 내용 |
+| --- | --- | --- |
+| 1 | `docs/agent-rules/agent-protocol.md` | 모든 에이전트가 공통으로 따르는 행동, 구현, 보안, 검증 계약 |
+| 2 | `docs/README.md` | `docs/` 전체 축과 라우팅 기준 요약 |
+| 3 | `docs/agent-rules/README.md` | 에이전트 규칙 축의 summary layer |
+| 4 | `docs/architecture/README.md` | 시스템 구조 지도와 세부 아키텍처 진입점 |
+| 5 | `docs/knowledge/README.md` | 프로젝트별 장기 사실, 문서 운영 기준, 제품 기준 진입점 |
+| 6 | `docs/memory/index.md` | live agent state 구조 안내 |
+| 7 | `docs/memory/runtime/context.md` | 현재 작업 status, 목표, 완료 기준, blocker |
+| 8 | `docs/memory/runtime/dailylog.md` | 시계열 작업 로그와 판단 기록 |
+```
+
+- 위 템플릿은 형식 예시다. `README.md` 대신 `index.md`를 쓰는 구조라면 실제 생성된 시작 문서명으로 맞춰라.
+- `스택`은 확인된 기술 스택만 적고, 아직 확정되지 않았으면 `TODO(project-specific)`로 둬라.
+- `문서 안내` 표는 실제 존재하는 경로만 넣어라. 존재하지 않는 `product/` 축이나 추가 role guide를 임의로 만들지 마라.
+- `AGENTS.md`에는 작업 유형별 빠른 경로 표를 넣지 마라. 기본 읽기 순서와 문서 안내 표만으로 충분하게 유지하라.
+
+### 2. `docs/README.md`
+
+- 이 문서는 `docs/` 전체의 최상위 summary layer다.
+- 4축의 경계, 라우팅 기준, 기본 읽기 순서만 적어라.
+- 상세 정책이나 프로젝트 특화 사실은 이 문서에 두지 마라.
+
+### 3. `docs/agent-rules/README.md`
+
+- `agent-rules` 축의 진입점 역할만 하게 하라.
+- 공통 계약 문서로 `agent-protocol.md`를 먼저 읽게 하라.
+- 이 템플릿은 역할별 guide를 기본 생성하지 않는다고 명시하라.
+- 프로젝트에 특화된 guide가 필요할 때만 후속 추가 대상으로 남겨라.
+
+### 4. `docs/agent-rules/agent-protocol.md`
 
 - 에이전트 공통 행동 규칙의 canonical source로 작성하라.
-- 아래 내용을 그대로 보존해 초기화하라. 단, 날짜나 프로젝트 특화 승인 항목만 필요 시 조정할 수 있다.
+- 아래 내용을 초기 baseline으로 삼아 작성하라. 날짜나 프로젝트 특화 승인 항목은 필요 시 조정할 수 있지만, 맥락 보존과 자기평가 규칙은 약화하지 마라.
 
 ```md
 ---
@@ -105,15 +174,12 @@ last-verified: TODO(project-specific)
 - 기존 스타일, 포매팅, 네이밍을 우선한다.
 - 현재 작업의 단일 shared runtime context는 `docs/memory/runtime/context.md`로 유지한다.
 - `docs/memory/runtime/dailylog.md`는 짧은 진행 로그와 관찰 메모용으로만 사용한다.
+- 문서 하네스는 프롬프트 내부 기억을 보조하는 외부 실행 인터페이스로 취급한다.
 - 실행 전에는 관련 코드, 설정, 문서, 테스트를 먼저 확인한다.
 - 확인하지 않은 것을 확인했다고 말하지 않는다.
 - 정확성, 보안, API 계약, 데이터 모델, UX에 영향이 큰 불확실성은 질문한다. 그 외는 가정을 명시하고 진행한다.
 - 민감 정보는 코드에 직접 넣지 않고 환경 변수로 주입한다.
 - 승인 항목에 해당하면 사용자 동의 없이 진행하지 않는다.
-
-## 하네스 유지보수
-- 현재의 문서 구조나 이 프로토콜 규칙이 반복적으로 병목을 만들면 `docs/memory/runtime/dailylog.md`에 문제점과 개선안을 기록한다.
-- 반복되는 구조적 문제나 실패 패턴이 관찰되면 관련 canonical 문서의 수정 또는 별도 하네스 개선 문서 추가를 제안한다.
 
 ## 승인 필요
 - 새 의존성 추가 또는 대규모 업그레이드
@@ -131,119 +197,182 @@ last-verified: TODO(project-specific)
 - 변경으로 인해 필요한 테스트, 문서, 설정의 최소 수정은 같은 작업 범위로 본다.
 - 부분 수정(diff/patch) 우선, 전체 재작성은 꼭 필요할 때만 한다.
 - 영향 범위가 넓은 변경은 바뀌는 동작과 유지되는 동작을 함께 보고한다.
+- summary layer와 canonical source의 경계를 흐리는 중복 서술은 만들지 않는다.
 
-## 실행 / 디버깅 / 테스트 / 완료 보고
-- 시작 시 `AGENTS.md`, 이 문서, 관련 문서를 읽고 `context.md`에 목표/기준을 정리한다.
+## 실행 / 디버깅
+- 시작 시 `AGENTS.md`, 이 문서, 관련 canonical 문서를 읽고 `docs/memory/runtime/context.md`에 현재 목표와 완료 기준을 정리한다.
+- 새 작업이면 `context.md`를 재초기화하고, 새 세션이면 `dailylog.md`를 재초기화한다.
 - 판단, blocker, 새 가정이 생기면 `context.md`나 `dailylog.md`에 즉시 반영한다.
+- durable한 사실과 runtime 상태를 같은 문단이나 같은 문서에 섞지 않는다.
+- 작업을 검증 가능한 목표로 전환한다.
+- 가능하면 작게 바꾸고 바로 검증한다.
 - 같은 접근으로 3번 연속 실패하면 멈추고 원인과 다음 선택지를 정리한다.
-- durable한 결과는 `agent-rules/`, `architecture/`, `knowledge/`로 직접 승격하고, `memory/runtime/`은 가볍게 정리한다.
+- 반복되는 실패 패턴은 `docs/agent-rules/` 또는 `docs/knowledge/documentation-reference.md` 갱신 대상으로 본다.
 
+## 자기평가 / 개선
+- 최종 응답 전 `Scope`, `Evidence`, `Verification`, `Memory`, `Improvement` 다섯 항목으로 자기평가한다.
+- `Scope`: 요청 범위 밖으로 나가지 않았는지 점검한다.
+- `Evidence`: 확인한 사실과 가정을 구분했는지 점검한다.
+- `Verification`: 실행한 검증과 미검증 항목을 분리했는지 점검한다.
+- `Memory`: `context.md`와 `dailylog.md`가 현재 상태를 반영하는지 점검한다.
+- `Improvement`: 반복 가능한 교훈을 어느 canonical source로 승격할지 판단한다.
 
+## 테스트 / 완료 보고
+- 퍼블릭 인터페이스와 기대 동작 중심으로 검증한다.
+- 관련 테스트를 우선 실행하고, 이후 필요 시 범위를 넓힌다.
+- live 문서를 바꿨다면 관련 검증 도구나 체크리스트가 있을 때만 함께 점검한다.
+- durable한 결과는 `docs/agent-rules/`, `docs/architecture/`, `docs/knowledge/`로 직접 승격하고, `docs/memory/runtime/`은 다음 작업을 위해 가볍게 정리한다.
+- 실행하지 못한 항목은 `미검증`으로 분리한다.
+- 결과 보고에서는 확인한 사실, 가정, 미검증, 개선 후보를 구분한다.
 ```
 
-### 3. `docs/README.md`
+- 이 템플릿은 `agent-protocol.md`만 기본 생성하고, 추가 role guide는 필요할 때만 optional로 제안하라.
 
-- 이 문서는 `docs/` 전체의 최상위 summary layer다.
-- 4축의 경계, 라우팅 기준, 기본 읽기 순서만 적어라.
-- 상세 정책이나 프로젝트 특화 사실은 이 문서에 두지 마라.
-
-### 4. `docs/architecture/README.md`
+### 5. `docs/architecture/README.md`
 
 - 내부 구조와 wiring 안내의 summary layer로 작성하라.
 - 이 폴더가 다루는 것과 다루지 않는 것을 구분하라.
 - 하위 문서 선택 기준을 짧게 안내하라.
 - 사용자 약속이나 제품 정책은 이 폴더에 두지 말고 `docs/knowledge/`로 보내라.
+- 실제 코드베이스를 탐색한 결과, 요청 흐름/설정/테스트 외에 별도 축이 필요하지 않으면 기본 문서만 유지하라.
 
-### 5. `docs/knowledge/README.md`
+### 6. `docs/architecture/runtime-request-lifecycle.md`
+
+- 요청이나 작업 흐름이 어떤 진입점에서 시작해 어떤 계층을 거쳐 응답 또는 결과로 이어지는지 설명하는 자리로 초기화하라.
+- 현재 프로젝트에 구체적인 런타임 정보가 없으면 일반 구조와 `TODO(project-specific)` anchor만 남겨라.
+- 엔트리포인트, 라우팅, CLI, 작업 큐, 배치 잡 등 실제 코드 경로를 탐색한 뒤 그 결과에 맞게 서술하라.
+
+### 7. `docs/architecture/runtime-config-and-services.md`
+
+- 설정값, 컨테이너, 서비스 wiring, 조립 지점을 기록하는 문서로 초기화하라.
+- 특정 프레임워크의 DI 구조를 추정해 적지 말고, 필요한 섹션만 만들어 두어라.
+- 실제 설정 파일, 서비스 등록 지점, 의존성 주입 패턴이 확인된 경우에만 반영하라.
+
+### 8. `docs/architecture/testing-test-strategy.md`
+
+- 테스트 책임 분리와 기본 검증 전략의 canonical source로 초기화하라.
+- 단위 테스트, 통합 테스트, 엔드투엔드 또는 시스템 테스트를 어떻게 나눌지 범용적으로 정리하라.
+- 실제 도구명은 확인된 경우에만 적고, 그렇지 않으면 `TODO(project-specific)`로 남겨라.
+- 테스트 디렉터리와 CI 구성을 탐색한 결과를 반영하라.
+
+### 9. `docs/knowledge/README.md`
 
 - 장기 지식 허브라는 점만 설명하는 summary layer로 작성하라.
 - 내부 wiring은 `architecture`, 현재 작업 메모는 `memory/runtime`에 둔다고 안내하라.
-- 사용자 약속, 지원 범위, 운영 기준은 이 축에서 관리된다고 짧게 설명하라.
 
-### 6. `docs/agent-rules/README.md`
+### 10. `docs/knowledge/documentation-reference.md`
 
-- `agent-rules` 축의 summary layer로 작성하라.
-- 공통 계약 문서로 `agent-protocol.md`를 먼저 읽게 하라.
-- 역할별 guide는 기본 생성하지 않는다고 명시하라.
-- 프로젝트 특화 guide는 필요 시 optional add-on으로만 제안하라.
+- 문서 운영 기준의 canonical source로 작성하라.
+- 아래 개념은 반드시 포함하라.
+  - canonical source
+  - summary layer
+  - runtime context
+  - daily log
+  - promotion
+  - 문서 라우팅 기준
+- 문서 축은 `agent-rules`, `architecture`, `knowledge`, `memory/runtime` 네 개로 고정하라.
+- summary layer 목록은 실제 구조 기준으로 적어라: `AGENTS.md`, `docs/README.md`, `docs/agent-rules/README.md`, `docs/architecture/README.md`, `docs/knowledge/README.md`, `docs/memory/index.md`.
 
-### 7. 'context.md"
-```
+### 11. `docs/knowledge/product-reference.md`
+
+- 사용자에게 드러나는 동작, 지원 범위, 장기 정책을 기록하는 자리로 초기화하라.
+- 프로젝트 성격이 아직 확정되지 않았다면 매우 얇게 작성하고 `TODO(project-specific)` placeholder를 남겨라.
+- 내부 wiring이나 임시 작업 메모는 여기에 두지 마라.
+- 실제 사용자 표면, 공개 API, 지원 범위가 코드나 기존 문서에서 확인된 경우에만 구체화하라.
+
+### 12. `docs/memory/index.md`
+
+- live runtime memory 계층이라는 점만 설명하라.
+- durable한 사실은 장기 문서로 승격하고, runtime 문서는 disposable하게 유지한다고 적어라.
+- 이 축의 시작 문서는 `index.md`를 유지한다고 명시하라.
+
+### 13. `docs/memory/runtime/context.md`
+
+- 현재 작업의 단일 상태 문서로 초기화하라.
+- 이 문서는 작업 단위 문서다. 작업이 바뀌면 이전 작업 내용을 남기지 말고 현재 작업 기준으로 전체를 재초기화하라.
+- 하네스 초기화 작업을 시작할 때 이 파일을 즉시 생성하라. 빈 헤더만 만들지 말고, 현재 수행 중인 작업을 기준으로 바로 채워라.
+- 아래 기본 섹션을 넣어라.
+  - `Current Task`
+  - `Completion Criteria`
+  - `References`
+  - `Decisions`
+  - `Next Steps`
+- unresolved 항목이 있으면 `Blockers` 또는 `Open Questions` 섹션을 추가할 수 있다.
+- 문서는 작업이 바뀔 때 누적 아카이브처럼 늘리지 말고, 현재 작업 기준으로 덮어써 유지하라.
+- 문서 맨 마지막에는 반드시 `Status` 섹션을 두고 현재 상태값을 명시하라.
+- 상태값은 최소한 `in_progress` 또는 `completed` 중 하나를 사용하라.
+- 작업 중에는 `in_progress`, 작업 완료 후 정리 단계에서는 `completed`로 갱신하라.
+- 초기 생성 시 아래 starter template를 기준으로 만들고, 현재 작업에 맞게 즉시 채워라.
+
+```md
 # 작업 컨텍스트
 
 ## Current Task
-- 현재 작업 목표를 한두 줄로 적는다.
-- 요청 범위를 벗어난 확장은 적지 않는다.
-- 예:
-  - `docs/architecture/testing-test-strategy.md`를 현재 테스트 구조 기준으로 정렬한다.
-  - `AGENTS.md`와 `docs/README.md`의 읽기 순서를 일치시킨다.
+- `TODO(project-specific)`
+
+## Completion Criteria
+- `TODO(project-specific)`
 
 ## References
-- 이번 작업에서 실제로 읽은 코드, 문서, 테스트, 설정 경로만 적는다.
-- 추정 경로나 아직 읽지 않은 경로는 적지 않는다.
-- 예:
-  - `AGENTS.md`
-  - `docs/README.md`
-  - `docs/agent-rules/agent-protocol.md`
-  - `src/app.ts`
-  - `tests/`
-  - `.github/workflows/ci.yml`
+- `TODO(project-specific)`
 
 ## Decisions
-- 이번 작업에서 확정한 판단만 짧게 남긴다.
-- 장기적으로 유지되어야 하는 판단이면 나중에 적절한 canonical 문서로 승격한다.
-- 예:
-  - `testing-test-strategy.md`는 canonical source로 유지한다.
-  - `docs/README.md`에는 프로젝트 특화 사실을 두지 않는다.
-  - `dailylog.md`의 오래된 항목은 이번 작업 범위 밖이라 정리만 보류한다.
+- `TODO(project-specific)`
 
 ## Next Steps
-- 바로 다음에 수행할 검증 가능한 행동만 적는다.
-- 모호한 계획 대신 파일/경로 기준의 행동으로 쓴다.
-- 예:
-  - `docs/architecture/testing-test-strategy.md`와 `tests/` 구조를 대조한다.
-  - `context.md` 완료 후 `Status`를 `completed`로 갱신한다.
-  - runtime 문서에 남아 있는 durable 정보를 승격 후보로 분리한다.
-
-## Notes
-- 임시 가정, blocker, 확인 필요 사항이 있으면 짧게 적는다.
-- 확정되지 않은 내용은 단정하지 않는다.
-- 예:
-  - `TODO(project-specific)`가 아직 많은 이유는 실제 공개 API 범위를 코드에서 확정하지 못했기 때문이다.
-  - 현재 저장소에는 `spec/`는 없고 `tests/`만 확인됨.
+- `TODO(project-specific)`
 
 ## Status
 - in_progress
 ```
 
-### 8. 'dailylog.md"
-```
+- 가능하면 `Current Task`에는 현재 요청을 한 줄로 직접 적고, `Completion Criteria`에는 완료 조건을 2~4개 불릿으로 구체화하라.
+- `References`에는 실제로 읽은 문서나 파일만 넣어라.
+- `Decisions`에는 작업 중 확정한 기준만 적고, 단순 관찰은 넣지 마라.
+- `Next Steps`는 현재 시점의 다음 행동으로 유지하고, 작업 종료 직전에는 완료 사실 또는 후속 handoff로 갱신하라.
+- 하네스 초기화 작업 자체를 수행하는 세션이라면, 첫 생성 시점부터 현재 작업을 `docs 하네스 초기화` 또는 그에 준하는 실제 작업명으로 채워라.
+
+### 14. `docs/memory/runtime/dailylog.md`
+
+- 짧은 진행 로그와 임시 관찰 메모용으로 초기화하라.
+- 이 문서는 세션 단위 문서다. 새 세션이 시작되면 전체를 재초기화하고 현재 세션 로그만 유지하라.
+- 세션이 시작되면 이 파일을 즉시 생성하라. 빈 `Entries` 섹션만 만들지 말고, 현재 세션의 첫 로그를 바로 남겨라.
+- 장기 기록 저장소처럼 쓰지 않도록 안내 문구를 넣어라.
+- 의미 있는 판단, blocker, 검증 결과만 짧은 한 줄 로그로 남기고 장문 회고는 넣지 마라.
+- 세션이 끝난 뒤 장기적으로 남길 가치가 있는 내용은 canonical source로 승격하고, 그렇지 않은 로그는 남기지 마라.
+- 초기 생성 시 아래 starter template를 기준으로 만들고, 현재 세션 기준 첫 엔트리를 즉시 추가하라.
+
+```md
 # 작업 로그
 
 ## Usage
 - 짧은 진행 로그, 관찰, 임시 blocker만 남긴다.
 - durable한 사실이나 정책은 `docs/knowledge/` 또는 더 구체적인 canonical 문서로 승격한다.
-- 새 작업을 시작할 때 오래된 항목은 정리하고 현재 작업에 필요한 로그만 유지한다.
-
-## Entry Format
-- `YYYY-MM-DD: [type] message`
-
-## Types
-- `start`: 작업 시작
-- `read`: 문서/코드 읽음
-- `check`: 대조/검증
-- `decision`: 임시 판단
-- `blocker`: 진행 막힘
-- `promote`: durable 정보 승격 필요
-- `done`: 작업 종료
+- 새 세션을 시작할 때 오래된 항목은 정리하고 현재 세션에 필요한 로그만 유지한다.
 
 ## Entries
-- `TODO(project-specific)`: `YYYY-MM-DD: [start] AGENTS.md와 docs 구조 정렬 작업 시작`
+- `TODO(project-specific)`: `YYYY-MM-DD: 세션 시작 로그`
 ```
+
+- 첫 엔트리는 "무슨 작업을 시작했는지"가 드러나야 한다.
+- 이후 엔트리는 판단, blocker, 검증, 구조 변경 같은 사건이 있을 때만 추가하라.
+- 완료 보고 직전에는 마지막 엔트리로 중요한 완료 또는 정렬 사실을 한 줄 남겨라.
+
+## 자기평가 및 개선 루프
+
+작업 중과 종료 직전에 아래 루프를 적용하라.
+
+1. 계획 시작 시 `context.md`에 현재 목표와 완료 기준이 있는지 확인하라.
+2. 새 작업이면 `context.md`, 새 세션이면 `dailylog.md`가 각각 재초기화되었는지 먼저 확인하라.
+3. 작업 중에는 새 판단, blocker, 검증 결과가 runtime 문서에 반영되는지 점검하라.
+4. 종료 전에는 `Scope`, `Evidence`, `Verification`, `Memory`, `Improvement` 다섯 항목으로 자기평가하라.
+5. durable한 교훈이 있으면 해당 canonical source로 승격하고, 승격하지 않은 항목은 왜 runtime에 남기지 않는지 짧게 설명하라.
+6. 반복 실수나 drift가 문서 구조 문제에서 왔다면 프롬프트나 문서 기준을 갱신 후보로 기록하라.
 
 ## summary layer 규칙
 
 아래 문서는 summary layer로 유지하라.
+
 - `AGENTS.md`
 - `docs/README.md`
 - `docs/agent-rules/README.md`
@@ -251,21 +380,74 @@ last-verified: TODO(project-specific)
 - `docs/knowledge/README.md`
 - `docs/memory/index.md`
 
-## canonical source 공통 작성 규칙
+summary layer에서는 아래만 말하라.
 
-아래 문서들은 canonical source로 취급하라.
-- `docs/architecture/runtime-request-lifecycle.md`
-- `docs/architecture/runtime-config-and-services.md`
-- `docs/architecture/testing-test-strategy.md`
-- `docs/knowledge/product-reference.md`
+- 이 문서가 어떤 축의 진입점인지
+- 무엇을 어디에서 읽어야 하는지
+- 어떤 문서가 canonical source인지
 
-이 문서들에는 아래 공통 규칙을 적용하라.
-- 문서의 목적과 범위를 첫머리에 짧게 적어라.
-- 실제 코드, 설정, 테스트, 기존 문서에서 확인된 사실만 반영하라.
-- 확인되지 않은 내용은 `TODO(project-specific)`로 남겨라.
-- 문서가 답하는 질문과 답하지 않는 질문을 구분하라.
-- 필요 없는 섹션은 억지로 채우지 말고 생략하라.
-- 다른 canonical 문서의 내용을 중복 복사하지 마라.
+summary layer에서 아래는 하지 마라.
+
+- 상세 정책 재서술
+- 프로젝트 특화 사실 단정
+- 다른 canonical 문서의 내용을 중복 복사
+
+## 기본 제외 대상
+
+아래는 기본 생성 대상에서 제외하라.
+
+- 도메인 모듈 전용 문서
+- SEO, robots, sitemap 관련 문서
+- repository/query 세부 문서
+- 배포 파이프라인 전용 문서
+- 역할별 role guide 문서
+- 로컬 스킬 폴더나 에이전트 플러그인 설정
+- docs audit 스크립트
+
+이 항목들은 실제 프로젝트에서 필요할 때만 optional add-on으로 제안하라.
+기본값에서는 생성하지 말고, 코드베이스에서 근거를 확인했을 때만 후보로 올려라.
+
+## optional add-on 예시
+
+아래 목록은 예시일 뿐이며, baseline 트리의 일부로 취급하지 마라.
+필요 시에만 아래 문서를 추가 제안하라.
+
+- `docs/architecture/data-domain-module-system.md`
+- `docs/architecture/data-adding-a-domain-module.md`
+- `docs/architecture/data-repository-and-query-layer.md`
+- `docs/architecture/publishing-seo-and-sitemaps.md`
+- `docs/agent-rules/<project-specific-guide>.md`
+- `.agents/skills/<project-specific-skill>/`
+
+추가 제안 시에는 "왜 이 프로젝트에 필요한지"를 한 줄로 설명하라.
+근거가 부족하면 optional add-on을 제안하지 않는 편을 기본값으로 삼아라.
+
+## 작성 스타일
+
+- 문서는 짧고 명확하게 작성하라.
+- 기존 저장소 관례가 없으면 과도한 세부 대신 구조와 경계 위주로 초기화하라.
+- 확인되지 않은 기술 스택, 서비스 이름, 사용자 정책을 추측해서 넣지 마라.
+- placeholder는 반드시 `TODO(project-specific)` 형식을 사용하라.
+- 탐색 결과로 확인한 사실과 추정한 내용을 구분하라.
+
+## 완료 체크리스트
+
+작업이 끝나기 전에 아래를 점검하라.
+
+1. 루트에 `AGENTS.md`와 `docs/` 4축 구조가 생성되었는가
+2. `docs/README.md`가 4축 경계와 라우팅 기준을 안내하는 최상위 지도 역할을 하는가
+3. `AGENTS.md`와 각 축의 시작 문서가 실제 존재하는 파일을 가리키는가
+4. summary layer 문서들이 상세 정책 대신 읽기 순서와 경계만 안내하는가
+5. 세부 정책이 더 구체적인 canonical source로 내려가 있는가
+6. 프로젝트 특화 사실이 `TODO(project-specific)` 없이 단정되어 있지 않은가
+7. `context.md`와 `dailylog.md`가 disposable runtime memory 용도로 초기화되었는가
+8. `context.md`가 목표와 완료 기준을 동시에 담고 있는가
+9. `context.md`가 빈 골격이 아니라 현재 작업 기준으로 즉시 채워졌는가
+10. `dailylog.md`에 현재 세션의 첫 엔트리가 실제로 들어가 있는가
+11. `context.md`의 맨 마지막 `Status` 값이 현재 상태를 정확히 반영하는가
+12. optional 문서를 기본값으로 생성하지 않았는가
+13. 코드베이스 탐색 결과가 아키텍처, 테스트, 사용자 표면 문서에 반영되었는가
+14. 자기평가와 개선 승격 판단이 누락되지 않았는가
 
 ## 최종 결과 보고 형식
 
@@ -297,7 +479,21 @@ last-verified: TODO(project-specific)
 - 4축 경계 위반 여부
 - summary layer 중복 여부
 
+### 6. 자기평가
+
+- `Scope`: 요청 범위 준수 여부
+- `Evidence`: 확인한 사실과 가정 구분 여부
+- `Verification`: 실행한 검증과 미검증 분리 여부
+- `Memory`: runtime 문서 최신성 여부
+- `Improvement`: 승격 또는 후속 개선 필요 여부
+
+### 7. 개선 또는 승격 후보
+
+- canonical source로 승격한 항목
+- 이번 작업에서는 승격하지 않은 항목과 이유
+
 기존 문서와 충돌이 있었다면 마지막에 병합 판단 근거를 짧게 덧붙여라.
 
 ---
 
+이 프롬프트의 목적은 범용 프로젝트에서 재사용 가능한 문서 운영 하네스를 빠르게 세팅하고, 이후 세션에서도 일관되게 사용할 수 있게 만드는 것이다. 프로젝트 고유 사실은 얇은 placeholder로 남기고, 코드베이스를 먼저 탐색한 뒤 그 구조에 맞는 문서 체계를 선택하라.
