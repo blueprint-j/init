@@ -1,5 +1,5 @@
-﻿---
-last-verified: 2026-03-29
+---
+last-verified: 2026-04-04
 ---
 
 # 문서 운영 기준
@@ -37,7 +37,9 @@ last-verified: 2026-03-29
 
 ## 운영 원칙
 - 문서 축은 `agent-rules`, `architecture`, `knowledge`, `memory/runtime` 네 개로 고정한다.
-- 상위 안내 문서인 `AGENTS.md`, 루트 `README.md`, 각 폴더 `README.md`와 `index.md`는 summary layer로 유지한다.
+- summary layer 문서는 `AGENTS.md`, `docs/README.md`, `docs/agent-rules/README.md`, `docs/architecture/README.md`, `docs/knowledge/README.md`, `docs/memory/index.md`로 유지한다.
+- 이 저장소의 기본 관례는 혼합형이다. `docs/` 루트와 `agent-rules`, `architecture`, `knowledge`는 `README.md`를 쓰고, `memory`만 `index.md`를 시작 문서로 사용한다.
+- 루트 `README.md`는 템플릿 저장소 소개 문서이며, `docs` 축의 summary layer로 취급하지 않는다.
 - summary layer와 각 canonical 문서는 `AGENTS.md`의 읽기 순서와 축 경계를 거스르지 않도록 정렬한다.
 - 장기 기준은 가능한 한 적은 문서 수로 유지하고, 기존 문서로 흡수할 수 있으면 새 파일을 만들지 않는다.
 - runtime memory는 live state 전용으로 유지하고, durable한 결과는 해당 canonical 문서로 직접 승격한다.

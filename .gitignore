@@ -1,0 +1,14 @@
+.env
+node_modules/
+
+/tmp/
+
+
+node_modules/
+
+*.log
+*.bun-build
+.env
+.env.local
+.env.*
+!.env.example
